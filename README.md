@@ -20,23 +20,23 @@ The code is structured to separate functions for clarity and maintainability. No
 1. To create and activate the virtual environment, use the following command for the bash shell:
     ```bash
     source venv/bin/activate
-
+    ```
     If you are using the fish shell, use this command instead:
 
-    ```
+    ```bash
     source venv/bin/activate.fish
     ```
 
 2.    Running the Bot
     To run the bot, simply execute the following command:
 
-    ```
+    ```bash
     python3 tgBot.py
     ```
 
     Install the required dependencies (if you have a requirements.txt file, use the following command):
 
-    ```
+    ```bash
     pip install -r requirements.txt
     ```
     Configuration
@@ -44,7 +44,7 @@ The code is structured to separate functions for clarity and maintainability. No
     Deployment on Ubuntu/Debian
     To deploy and run the bot on Ubuntu/Debian systems, ensure you have Python 3.x and the required dependencies installed. Use the following commands:
 
-    ```
+    ```bash
     sudo apt update
     sudo apt install python3 python3-pip python3-venv
     ```
