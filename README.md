@@ -1,35 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Registration Bot</title>
-</head>
-<body>
-    <h1>User Registration Bot</h1>
-    <p>This bot is designed for user registration in a database and assigning roles according to a hierarchy. For better code organization and readability, functions (excluding routers) are separated into <code>defs.py</code>. Configuration settings can be adjusted in <code>config.py</code> for easy setup.</p>
+# User Registration Bot
 
-    <h2>Prerequisites</h2>
-    <p>Ensure you have Python 3 installed on your Ubuntu/Debian system. You will also need to install the necessary dependencies listed in <code>requirements.txt</code>.</p>
+This bot is designed for user registration and role assignment within a database. It assigns roles based on a predefined hierarchy.
 
-    <h2>Setting Up a Virtual Environment</h2>
-    <p>To set up a virtual environment, use the following commands:</p>
-    <h3>For standard shell:</h3>
-    <pre><code>source venv/bin/activate</code></pre>
-    <h3>For Fish shell:</h3>
-    <pre><code>source venv/bin/activate.fish</code></pre>
+The code is structured to separate functions for clarity and maintainability. Non-router functions are placed in `defs.py` for easier understanding. The bot's configuration is stored in `config.py`.
 
-    <h2>Running the Bot</h2>
-    <p>Once your virtual environment is activated, you can start the bot with the following command:</p>
-    <pre><code>python3 tgBot.py</code></pre>
+## Project Structure
 
-    <h2>Configuration</h2>
-    <p>Before running the bot, make sure to configure your settings in <code>config.py</code>. This file contains essential parameters that the bot requires for proper operation.</p>
+- **defs.py**: Contains the main functions for user registration and role management.
+- **config.py**: Configuration file for setting up the bot parameters.
+- **tgBot.py**: Main script for running the bot.
 
-    <h2>Contributing</h2>
-    <p>If you would like to contribute to this project, please feel free to submit a pull request or open an issue. Your contributions are welcome!</p>
+## Installation and Setup
+  clone repository:
+  ```
+  git clone https://github.com/Oxnack/bot_with_questionnaires.git
+  ```
+### Setting Up the Virtual Environment
 
-    <h2>License</h2>
-    <p>This project is licensed under the MIT License. See the LICENSE file for more details.</p>
-</body>
-</html>
+1. To create and activate the virtual environment, use the following command for the bash shell:
+   ```bash
+   source venv/bin/activate
+If you are using the fish shell, use this command instead:
+
+```
+source venv/bin/activate.fish
+```
+Install the required dependencies (if you have a requirements.txt file, use the following command):
+
+```
+pip install -r requirements.txt
+```
+Running the Bot
+To run the bot, simply execute the following command:
+
+
+```
+python3 tgBot.py
+```
+Configuration
+Open and modify config.py to set up your bot, including bot token, database settings, and other parameters.
+Deployment on Ubuntu/Debian
+To deploy and run the bot on Ubuntu/Debian systems, ensure you have Python 3.x and the required dependencies installed. Use the following commands:
+
+```
+sudo apt update
+sudo apt install python3 python3-pip python3-venv
+```
+After setting up the virtual environment, follow the instructions above to activate it and run the bot.
+
+License
+This project is licensed under the MIT License - see the LICENSE file for details.
