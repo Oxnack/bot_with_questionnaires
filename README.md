@@ -18,32 +18,34 @@ The code is structured to separate functions for clarity and maintainability. No
 ### Setting Up the Virtual Environment
 
 1. To create and activate the virtual environment, use the following command for the bash shell:
-   ```bash
-   source venv/bin/activate
-If you are using the fish shell, use this command instead:
+    ```bash
+    source venv/bin/activate
 
-```
-source venv/bin/activate.fish
-```
-Install the required dependencies (if you have a requirements.txt file, use the following command):
+    If you are using the fish shell, use this command instead:
 
-```
-pip install -r requirements.txt
-```
-Running the Bot
-To run the bot, simply execute the following command:
+    ```
+    source venv/bin/activate.fish
+    ```
 
+2.    Running the Bot
+    To run the bot, simply execute the following command:
 
-```
-python3 tgBot.py
-```
-Configuration
-Open and modify config.py to set up your bot, including bot token, database settings, and other parameters.
-Deployment on Ubuntu/Debian
-To deploy and run the bot on Ubuntu/Debian systems, ensure you have Python 3.x and the required dependencies installed. Use the following commands:
+    ```
+    python3 tgBot.py
+    ```
 
-```
-sudo apt update
-sudo apt install python3 python3-pip python3-venv
-```
-After setting up the virtual environment, follow the instructions above to activate it and run the bot.
+    Install the required dependencies (if you have a requirements.txt file, use the following command):
+
+    ```
+    pip install -r requirements.txt
+    ```
+    Configuration
+    Open and modify config.py to set up your bot, including bot token, database settings, and other parameters.
+    Deployment on Ubuntu/Debian
+    To deploy and run the bot on Ubuntu/Debian systems, ensure you have Python 3.x and the required dependencies installed. Use the following commands:
+
+    ```
+    sudo apt update
+    sudo apt install python3 python3-pip python3-venv
+    ```
+    After setting up the virtual environment, follow the instructions above to activate it and run the bot.
