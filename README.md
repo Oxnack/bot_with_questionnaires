@@ -6,7 +6,7 @@ The code is structured to separate functions for clarity and maintainability. No
 
 ## Project Structure
 
-- **defs.py**: Contains the main functions for user registration and role management.
+- **defs.py**: Contains the base functions (not routers).
 - **config.py**: Configuration file for setting up the bot parameters.
 - **tgBot.py**: Main script for running the bot.
 
@@ -47,6 +47,3 @@ sudo apt update
 sudo apt install python3 python3-pip python3-venv
 ```
 After setting up the virtual environment, follow the instructions above to activate it and run the bot.
-
-License
-This project is licensed under the MIT License - see the LICENSE file for details.
