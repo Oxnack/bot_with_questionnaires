@@ -27,7 +27,7 @@ The code is structured to separate functions for clarity and maintainability. No
     source venv/bin/activate.fish
     ```
 
-2.    Running the Bot
+2. Running the Bot
     To run the bot, simply execute the following command:
 
     ```bash
