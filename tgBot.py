@@ -158,7 +158,21 @@ def another_answer_handler(message):
     user_states.pop(str(message.chat.id) + "_message_id", None)
     user_states.pop(str(message.chat.id), None)
 
+@bot.message_handler(commands=['add']) # deeplink add
+def handle_start(message): 
+    args = message.text.split() 
+    if len(args) > 1: 
+        param = args[1] 
+        print("----param: " + param) 
+        if (deeplinks_parametrs[param]):
+            edit_row_users_change_rule(deeplinks_parametrs[param], message.chat.id)
+            bot.send_message(message.chat.id, "Поздравляю, теперь вы: " + deeplinks_parametrs[param]) 
+            deeplinks_parametrs.pop(param)
+            print("new deeplinks: " + deeplinks_parametrs)
+    else: 
+        bot.send_message(message.chat.id, "Ошибка, или срок действия ссылки истек") 
 
+deeplinks_parametrs = {}
 
 user_states = {}
 
@@ -217,17 +231,21 @@ def handle_code(message):
     user_states.pop(str(message.chat.id) + "_phone", None)
 
 ########################################################################
-@bot.message_handler(commands=['send']) 
+@bot.message_handler(commands=['send']) # right: send
 def send_message_only_curator(message):
     print("send_message_function")
     data = find_row_by_tg_id_users(str(message.chat.id))
-    if (data['is_admin'] == True):       # <<<<<<<<<<<<<<<
-        bot.send_message(message.chat.id, "Напишите текст сообщения, без картинок и опроса")
-        message_number = add_row_messages(message.chat.id)
-        user_states[str(message.chat.id) + "_message_id"] = message_number
-        user_states[str(message.chat.id)] = STATE_WAITING_FOR_TEXT_MESSAGE
-    else:
-        bot.send_message(message.chat.id, "К сожалению вы не куратор")
+    rule = data['rule']
+    try:
+        if "send" in rules_rights[rule]:       # <<<<<<<<<<<<<<<
+            bot.send_message(message.chat.id, "Напишите текст сообщения, без картинок и опроса")
+            message_number = add_row_messages(message.chat.id)
+            user_states[str(message.chat.id) + "_message_id"] = message_number
+            user_states[str(message.chat.id)] = STATE_WAITING_FOR_TEXT_MESSAGE
+        else:
+            bot.send_message(message.chat.id, "К сожалению вы не куратор")
+    except Exception as e:
+        print(f'Err {e}')
 
     
 @bot.message_handler(func=lambda message: user_states.get(str(message.chat.id)) == STATE_WAITING_FOR_TEXT_MESSAGE)

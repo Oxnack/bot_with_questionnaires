@@ -115,14 +115,14 @@ def connect_to_db():   # coonect to db
     )
     return conn
 
-def edit_row_users(tg_id, phone_number):  # EDIT row for table 
+def edit_row_users(tg_id, phone_number):  # EDIT row for table USERS
     conn = connect_to_db()
     with conn.cursor() as cursor:
         cursor.execute('UPDATE ' + str(table_name_users) + ' SET telegram_id = %s WHERE phone_number = %s', (tg_id, phone_number))
         conn.commit()
     conn.close()
 
-def find_row_by_tg_id_users(telegram_id):   # FIND row for table BY TG_ID
+def find_row_by_tg_id_users(telegram_id):   # FIND row for table BY TG_ID  USERS
     conn = connect_to_db()
     with conn.cursor(cursor_factory=RealDictCursor) as cursor:
         cursor.execute("SELECT * FROM users WHERE telegram_id = %s", (telegram_id,))
@@ -177,6 +177,14 @@ def edit_buttons_message(num, buttons_json):       # EDIT buttons in row IN mess
         cursor.execute("UPDATE messages SET buttons = %s WHERE id = %s", (buttons_json, num))
         conn.commit()
     conn.close()
+
+def edit_row_users_change_rule(rule, tg_id):  # EDIT row for table USERS (rule_change)
+    conn = connect_to_db()
+    with conn.cursor() as cursor:
+        cursor.execute('UPDATE ' + str(table_name_users) + ' SET rule = %s WHERE telegram_id = %s', (rule, tg_id))
+        conn.commit()
+    conn.close()
+
 
 def edit_image_messages(num, medias):      # EDIT images and videos in MESSAGES --------in raw in images sting with names of files "name1.jpg name2.mp4 name3.jpg"
     if (medias != None and medias != []):

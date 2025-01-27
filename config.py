@@ -13,5 +13,13 @@ password = '0000'
 
 # rules: root(send, get_admin, get_manager), admin(send, get_manager), manager(send), user(not)
 
+rules_rights = {
+    "root": ["send", "get_admin", "get_manager"],
+    "admin": ["send", "get_manager"],
+    "manager": ["send"],
+    "user": ["not rights"]
+}
+
+
 
 
