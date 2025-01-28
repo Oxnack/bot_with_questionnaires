@@ -19,6 +19,11 @@ def hash_text(text):
     sha256.update(text.encode('utf-8'))
     return sha256.hexdigest()
 
+def generate_random_string(length=5):  # for deeplink code
+    characters = string.ascii_letters + string.digits  
+    random_string = ''.join(random.choice(characters) for _ in range(length))
+    return random_string
+
 def get_mp4_files(file_list):
     return [file for file in file_list if file.endswith('.mp4') and os.path.isfile(file)]
 

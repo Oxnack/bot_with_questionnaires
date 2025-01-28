@@ -158,19 +158,40 @@ def another_answer_handler(message):
     user_states.pop(str(message.chat.id) + "_message_id", None)
     user_states.pop(str(message.chat.id), None)
 
-@bot.message_handler(commands=['add_rule']) # deeplink add
-def handle_start(message): 
-    args = message.text.split() 
-    if len(args) > 1: 
-        param = args[1] 
-        print("----param: " + param) 
-        if (deeplinks_parametrs[param]):
-            edit_row_users_change_rule(deeplinks_parametrs[param], message.chat.id)
-            bot.send_message(message.chat.id, "Поздравляю, теперь вы: " + deeplinks_parametrs[param]) 
-            deeplinks_parametrs.pop(param)
-            print("new deeplinks: " + deeplinks_parametrs)
-    else: 
-        bot.send_message(message.chat.id, "Ошибка, или срок действия ссылки истек") 
+######################################################################## ROUTERS SET RULES {
+
+@bot.message_handler(commands=['add_admin']) # deeplink add ||| RIGHT: GET ADMIN
+def handle_set_admin(message): 
+    data = find_row_by_tg_id_users(str(message.chat.id))
+    rule = data["rule"]
+    deeplink_code = generate_random_string()
+    try:
+        if "get_admin" in rules_rights[rule]:       # <<<<<<<<<<<<<<<
+            deeplinks_parametrs[deeplink_code] = "admin"
+            bot.send_message(message.chat.id, "Для получания прав Админа, перейдите по ссылке:" + f"https://t.me/{bot_name}?start={deeplink_code}" + "  РАСПРОСТРОНЯТЬ И ПЕРЕХОДИТЬ С ОСТОРОЖНОСТЬЮ!")
+        else:
+            bot.send_message(message.chat.id, "К сожалению вы не root")
+    except Exception as e:
+        bot.send_message(message.chat.id, "Ошибка: возможно у вас не хватает прав доступа к назначению")
+        print(f'Err {e}')
+    
+
+@bot.message_handler(commands=['add_manager']) # deeplink add ||| RIGHT: GET MANAGER
+def handle_set_admin(message): 
+    data = find_row_by_tg_id_users(str(message.chat.id))
+    rule = data["rule"]
+    deeplink_code = generate_random_string()
+    try:
+        if "get_manager" in rules_rights[rule]:       # <<<<<<<<<<<<<<<
+            deeplinks_parametrs[deeplink_code] = "manager"
+            bot.send_message(message.chat.id, "Для получания прав Менеджера, перейдите по ссылке:" + f"https://t.me/{bot_name}?start={deeplink_code}" + "  РАСПРОСТРОНЯТЬ И ПЕРЕХОДИТЬ С ОСТОРОЖНОСТЬЮ!")
+        else:
+            bot.send_message(message.chat.id, "К сожалению вы не root и не admin")
+    except Exception as e:
+        bot.send_message(message.chat.id, "Ошибка: возможно у вас не хватает прав доступа к назначению")
+        print(f'Err {e}')
+
+####################################################################################################### }
 
 deeplinks_parametrs = {}
 
@@ -186,16 +207,43 @@ STATE_WAITING_FOR_ANOTHER_ANSWER_MESSAGE = 'waiting_for_another_answer_message'
 
 @bot.message_handler(commands=['start']) 
 def send_welcome(message):
-    data = find_row_by_tg_id_users(str(message.chat.id))
-    if data:
-        bot.send_message(message.chat.id, "Вы авторизованы:" + str(data))
-    else:
-        add_row_users(message.chat.id)
+    args = message.text.split() 
+    if len(args) <= 1: 
+        
         data = find_row_by_tg_id_users(str(message.chat.id))
-        bot.send_message(message.chat.id, "Вы зарегестрировались:" + str(data))
-        # bot.send_message(message.chat.id, "Требуется авторизация: \n отправьте свой номер телефона в формате 89997776655:")
-        # user_states[str(message.chat.id)] = STATE_WAITING_FOR_PHONE
-
+        if data:
+            bot.send_message(message.chat.id, "Вы авторизованы:" + str(data))
+        else:
+            add_row_users(message.chat.id)
+            data = find_row_by_tg_id_users(str(message.chat.id))
+            bot.send_message(message.chat.id, "Вы зарегестрировались:" + str(data))
+            # bot.send_message(message.chat.id, "Требуется авторизация: \n отправьте свой номер телефона в формате 89997776655:")
+            # user_states[str(message.chat.id)] = STATE_WAITING_FOR_PHONE
+    
+#########################################################################################3
+#########################################################################################3  INPUT DEEPLINK {
+    else:
+        print("get_rule_func")
+        data = find_row_by_tg_id_users(str(message.chat.id))
+        now_rule = data["rule"]
+        args = message.text.split() 
+        if len(args) > 1: 
+            param = args[1] 
+            print("----param: " + param) 
+            if (param in deeplinks_parametrs):
+                if (now_rule != "root"):
+                    edit_row_users_change_rule(deeplinks_parametrs[param], str(message.chat.id))
+                    bot.send_message(message.chat.id, "Поздравляю, теперь вы: " + deeplinks_parametrs[param]) 
+                    deeplinks_parametrs.pop(param)
+                    print("now all deeplinks: " + str(deeplinks_parametrs))
+                else:
+                    bot.send_message(message.chat.id, "Вы и так root, высший по званию") 
+            else:
+                bot.send_message(message.chat.id, "Ошибка, или срок действия ссылки истек") 
+        else: 
+            bot.send_message(message.chat.id, "Ошибка, или срок действия ссылки истек") 
+#########################################################################################3  }
+#########################################################################################3
 
 ################ Autorisation by phone #######################################################################
 
@@ -410,9 +458,6 @@ if __name__ == '__main__':
 
     run_bot()
 
-
-
-    
 def create_table(conn):
     with conn.cursor() as cursor:
         cursor.execute('''
