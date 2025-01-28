@@ -49,3 +49,10 @@ The code is structured to separate functions for clarity and maintainability. No
     sudo apt install python3 python3-pip python3-venv
     ```
     After setting up the virtual environment, follow the instructions above to activate it and run the bot.
+
+#### Add rule:
+  commands:
+    deeplink:
+
+    https://t.me/your_bot?add_rule=parameter 
+    

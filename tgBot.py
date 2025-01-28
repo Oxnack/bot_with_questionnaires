@@ -158,7 +158,7 @@ def another_answer_handler(message):
     user_states.pop(str(message.chat.id) + "_message_id", None)
     user_states.pop(str(message.chat.id), None)
 
-@bot.message_handler(commands=['add']) # deeplink add
+@bot.message_handler(commands=['add_rule']) # deeplink add
 def handle_start(message): 
     args = message.text.split() 
     if len(args) > 1: 
