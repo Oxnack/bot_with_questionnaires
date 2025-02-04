@@ -1,13 +1,13 @@
-TOKEN = '7553025594:AAFPTSw2AVrsQXnBL91KDLam7-lC6VJFfng'
+TOKEN = 'your'
 
-bot_name = "test_kjhshdfusydu_bot"
+bot_name = "name"
 
 #https://t.me/your_bot?start=parameter 
 
 reqestPass_hash = "ac09723b8aa6cbc0017cec20523855d87c2cd1ff85ac71e4f4daea0f3e89f266" #897jkgy2489hei
 
 # db data: ------------------------------------->>>
-host = 'x1team.ru'  
+host = 'hostaddr'  
 database = 'tg_bot_data'
 table_name_users = "users"
 table_name_messages = "messages"
