@@ -123,14 +123,14 @@ def connect_to_db():   # coonect to db
 def edit_row_users(tg_id, phone_number):  # EDIT row for table USERS
     conn = connect_to_db()
     with conn.cursor() as cursor:
-        cursor.execute('UPDATE ' + str(table_name_users) + ' SET telegram_id = %s WHERE phone_number = %s', (tg_id, phone_number))
+        cursor.execute('UPDATE ' + str(table_name_users) + ' SET tg_id = %s WHERE phone_number = %s', (tg_id, phone_number))
         conn.commit()
     conn.close()
 
 def find_row_by_tg_id_users(telegram_id):   # FIND row for table BY TG_ID  USERS
     conn = connect_to_db()
     with conn.cursor(cursor_factory=RealDictCursor) as cursor:
-        cursor.execute("SELECT * FROM users WHERE telegram_id = %s", (telegram_id,))
+        cursor.execute("SELECT * FROM users WHERE tg_id = %s", (telegram_id,))
         row = cursor.fetchone()
         return row
     conn.close()
@@ -156,7 +156,7 @@ def add_row_messages(tg_id):   # ADD row in MESSAGES
 def add_row_users(tg_id):   # ADD row IN messages
     conn = connect_to_db()
     with conn.cursor() as cursor:
-        cursor.execute("INSERT INTO users (telegram_id, rule) VALUES (%s, %s) RETURNING id;", (str(tg_id), "user"))  # ADD row in USERS (rule = user)
+        cursor.execute("INSERT INTO users (tg_id, rule) VALUES (%s, %s) RETURNING id;", (str(tg_id), "user"))  # ADD row in USERS (rule = user)
         conn.commit()
         print("new user with id: " + str(tg_id))
     conn.close()
@@ -186,7 +186,7 @@ def edit_buttons_message(num, buttons_json):       # EDIT buttons in row IN mess
 def edit_row_users_change_rule(rule, tg_id):  # EDIT row for table USERS (rule_change)
     conn = connect_to_db()
     with conn.cursor() as cursor:
-        cursor.execute('UPDATE ' + str(table_name_users) + ' SET rule = %s WHERE telegram_id = %s', (rule, tg_id))
+        cursor.execute('UPDATE ' + str(table_name_users) + ' SET rule = %s WHERE tg_id = %s', (rule, tg_id))
         conn.commit()
     conn.close()
 
